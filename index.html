@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChronoStamp - Batch Image Date & Timestamp Overlay</title>
+    <title>Timestamp - Batch Image Date & Timestamp Overlay</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,22 +20,21 @@
         <!-- Top Header Navigation -->
         <header class="app-header">
             <div class="logo">
-                <i class="fa-solid fa-clock-rotate-left logo-icon"></i>
-                <span class="logo-text">ChronoStamp</span>
-                <span class="logo-badge">Batch Pro</span>
+                <i class="fa-regular fa-clock logo-icon"></i>
+                <span class="logo-text">timestamp</span>
             </div>
             <div class="header-stats" id="headerStats">
-                <span id="photoCountBadge"><i class="fa-regular fa-images"></i> 0 Photos Loaded</span>
+                <span id="photoCountBadge">0 Photos</span>
             </div>
             <div class="header-actions">
                 <button id="addMoreFilesBtn" class="btn btn-secondary" disabled>
-                    <i class="fa-solid fa-plus"></i> Add More
+                    <i class="fa-solid fa-plus"></i> Add Images
                 </button>
-                <button id="clearAllBtn" class="btn btn-danger-outline" disabled>
-                    <i class="fa-solid fa-trash-can"></i> Clear
+                <button id="clearAllBtn" class="btn btn-secondary" disabled>
+                    Clear
                 </button>
                 <button id="exportZipBtn" class="btn btn-primary" disabled>
-                    <i class="fa-solid fa-file-zipper"></i> Download All (ZIP)
+                    <i class="fa-solid fa-download"></i> Download ZIP
                 </button>
             </div>
         </header>
@@ -45,34 +44,31 @@
             <!-- Left Sidebar Controls -->
             <aside class="control-panel">
                 <div class="panel-section">
-                    <h3 class="section-title">
-                        <i class="fa-solid fa-timeline title-icon"></i> 1. Time Interpolation
-                    </h3>
-                    <p class="section-desc">Set starting & ending times; intermediate photos will auto-calculate!</p>
+                    <h3 class="section-title">Time Calculation</h3>
                     
                     <div class="form-group">
-                        <label for="baseDate"><i class="fa-regular fa-calendar"></i> Date</label>
+                        <label for="baseDate">Date</label>
                         <input type="date" id="baseDate" class="form-input">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group flex-1">
-                            <label for="startTime"><i class="fa-regular fa-clock"></i> First Photo Time</label>
+                            <label for="startTime">First Photo Time</label>
                             <input type="time" id="startTime" class="form-input" value="08:31" step="1">
                         </div>
                         <div class="form-group flex-1">
-                            <label for="endTime"><i class="fa-regular fa-clock"></i> Last Photo Time</label>
+                            <label for="endTime">Last Photo Time</label>
                             <input type="time" id="endTime" class="form-input" value="08:50" step="1">
                         </div>
                     </div>
 
                     <div class="time-summary-box" id="timeSummaryBox">
                         <div class="summary-item">
-                            <span class="summary-label">Duration:</span>
+                            <span class="summary-label">Duration</span>
                             <span class="summary-value" id="totalDurationText">19 mins</span>
                         </div>
                         <div class="summary-item">
-                            <span class="summary-label">Interval / Photo:</span>
+                            <span class="summary-label">Interval</span>
                             <span class="summary-value" id="intervalPerPhotoText">--</span>
                         </div>
                     </div>
@@ -81,7 +77,7 @@
                         <label for="interpolationMode">Calculation Mode</label>
                         <select id="interpolationMode" class="form-select">
                             <option value="linear" selected>Linear Spacing (First to Last)</option>
-                            <option value="step">Fixed Step Interval (+Seconds/Photo)</option>
+                            <option value="step">Fixed Step (+Seconds/Photo)</option>
                         </select>
                     </div>
 
@@ -92,19 +88,17 @@
                 </div>
 
                 <div class="panel-section">
-                    <h3 class="section-title">
-                        <i class="fa-solid fa-font title-icon"></i> 2. Stamp Typography & Design
-                    </h3>
+                    <h3 class="section-title">Font & Stamp Style</h3>
                     
                     <div class="form-group">
-                        <label for="fontFamily">Font Style</label>
+                        <label for="fontFamily">Font Family</label>
                         <select id="fontFamily" class="form-select">
-                            <option value="Inter, sans-serif" selected>Inter (Clean Modern Sans - Reference)</option>
-                            <option value="Roboto, sans-serif">Roboto (Digital Clean)</option>
-                            <option value="Nunito, sans-serif">Nunito (Rounded Soft)</option>
-                            <option value="'Roboto Mono', monospace">Roboto Mono (Digital Tech)</option>
-                            <option value="'Share Tech Mono', monospace">Share Tech Mono (Digital Camera)</option>
-                            <option value="Arial, sans-serif">Arial Classic</option>
+                            <option value="Inter, sans-serif" selected>Inter (Clean Sans - Reference)</option>
+                            <option value="Roboto, sans-serif">Roboto</option>
+                            <option value="Nunito, sans-serif">Nunito</option>
+                            <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                            <option value="'Share Tech Mono', monospace">Share Tech Mono</option>
+                            <option value="Arial, sans-serif">Arial</option>
                         </select>
                     </div>
 
@@ -122,7 +116,7 @@
 
                     <div class="form-row">
                         <div class="form-group flex-1">
-                            <label for="fontSizePercent">Font Size (% image height)</label>
+                            <label for="fontSizePercent">Font Size</label>
                             <div class="range-with-val">
                                 <input type="range" id="fontSizePercent" min="1" max="10" value="2.8" step="0.1">
                                 <span id="fontSizeVal">2.8%</span>
@@ -145,7 +139,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Shadow & Outline (For Visibility)</label>
+                        <label>Visibility Enhancements</label>
                         <div class="checkbox-group">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="enableShadow" checked> Drop Shadow
@@ -158,23 +152,13 @@
                 </div>
 
                 <div class="panel-section">
-                    <h3 class="section-title">
-                        <i class="fa-solid fa-arrows-to-dot title-icon"></i> 3. Position & Padding
-                    </h3>
+                    <h3 class="section-title">Position & Padding</h3>
                     
                     <div class="position-grid">
-                        <button class="pos-btn" data-pos="top-left" title="Top Left">
-                            <i class="fa-solid fa-arrow-up-left"></i> TL
-                        </button>
-                        <button class="pos-btn" data-pos="top-right" title="Top Right">
-                            <i class="fa-solid fa-arrow-up-right"></i> TR
-                        </button>
-                        <button class="pos-btn" data-pos="bottom-left" title="Bottom Left">
-                            <i class="fa-solid fa-arrow-down-left"></i> BL
-                        </button>
-                        <button class="pos-btn active" data-pos="bottom-right" title="Bottom Right">
-                            <i class="fa-solid fa-arrow-down-right"></i> BR
-                        </button>
+                        <button class="pos-btn" data-pos="top-left" title="Top Left">Top Left</button>
+                        <button class="pos-btn" data-pos="top-right" title="Top Right">Top Right</button>
+                        <button class="pos-btn" data-pos="bottom-left" title="Bottom Left">Bottom Left</button>
+                        <button class="pos-btn active" data-pos="bottom-right" title="Bottom Right">Bottom Right</button>
                     </div>
 
                     <div class="form-row mt-2">
@@ -191,14 +175,10 @@
                 <!-- Dropzone when no images uploaded -->
                 <div id="dropzone" class="dropzone-container">
                     <div class="dropzone-card">
-                        <div class="dropzone-icon-wrapper">
-                            <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
-                        </div>
-                        <h2>Drop photos here or click to browse</h2>
-                        <p class="dropzone-hint">Supports JPG, PNG, WEBP, HEIC (Batch load 100+ images smoothly)</p>
-                        <button class="btn btn-lg btn-primary mt-3" id="selectFilesBtn">
-                            <i class="fa-solid fa-folder-open"></i> Select Images
-                        </button>
+                        <i class="fa-regular fa-images dropzone-icon"></i>
+                        <h2>Drop images here</h2>
+                        <p class="dropzone-hint">or click to browse from your device</p>
+                        <button class="btn btn-primary mt-3" id="selectFilesBtn">Select Images</button>
                         <input type="file" id="fileInput" multiple accept="image/*" class="hidden">
                     </div>
                 </div>
@@ -208,14 +188,14 @@
                     <div class="preview-toolbar">
                         <div class="preview-info">
                             <span id="currentImageName">Filename.jpg</span>
-                            <span id="currentImageIndex" class="badge">1 of 20</span>
+                            <span id="currentImageIndex" class="badge">1 of 1</span>
                             <span id="currentImageDimensions" class="badge-dim">1920x1080</span>
                         </div>
                         <div class="preview-controls">
                             <button id="prevPhotoBtn" class="btn-icon" title="Previous Photo"><i class="fa-solid fa-chevron-left"></i></button>
                             <button id="nextPhotoBtn" class="btn-icon" title="Next Photo"><i class="fa-solid fa-chevron-right"></i></button>
-                            <button id="downloadCurrentBtn" class="btn btn-secondary-sm" title="Download Stamped Image">
-                                <i class="fa-solid fa-download"></i> Download Stamped
+                            <button id="downloadCurrentBtn" class="btn btn-secondary-sm" title="Download Image">
+                                <i class="fa-solid fa-download"></i> Download Image
                             </button>
                         </div>
                     </div>
@@ -228,10 +208,8 @@
                 <!-- Bottom Thumbnail Strip -->
                 <div class="thumbnail-strip-container hidden" id="thumbnailStripContainer">
                     <div class="thumbnail-header">
-                        <span>Loaded Photos (<span id="thumbCount">0</span>) - Click photo to preview & adjust order</span>
-                        <div class="thumbnail-actions">
-                            <button id="sortByFilenameBtn" class="btn-text"><i class="fa-solid fa-arrow-down-a-z"></i> Sort Name</button>
-                        </div>
+                        <span>Photos (<span id="thumbCount">0</span>)</span>
+                        <button id="sortByFilenameBtn" class="btn-text">Sort by Name</button>
                     </div>
                     <div class="thumbnail-strip" id="thumbnailStrip">
                         <!-- Thumbnail items dynamically injected here -->
@@ -244,14 +222,13 @@
         <div id="exportModal" class="modal-backdrop hidden">
             <div class="modal-card">
                 <div class="modal-header">
-                    <h3><i class="fa-solid fa-gear fa-spin"></i> Processing & Stamping Batch</h3>
+                    <h3>Processing Batch</h3>
                 </div>
                 <div class="modal-body">
                     <div class="progress-bar-wrapper">
                         <div id="exportProgressBar" class="progress-bar-fill" style="width: 0%;"></div>
                     </div>
                     <p class="progress-status-text" id="exportProgressText">Processing photo 0 of 0...</p>
-                    <p class="progress-subtext" id="exportProgressSubtext">Generating crisp high-resolution stamped photos...</p>
                 </div>
             </div>
         </div>

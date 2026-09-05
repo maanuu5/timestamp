@@ -29,7 +29,9 @@ window.CanvasRenderer = (function () {
         const imgWidth = image.naturalWidth || image.width;
         const imgHeight = image.naturalHeight || image.height;
 
-        // Set canvas resolution to match natural image size
+        if (imgWidth === 0 || imgHeight === 0) return;
+
+        // Reset canvas dimensions to completely clear buffer and state
         canvas.width = imgWidth;
         canvas.height = imgHeight;
 
@@ -39,17 +41,14 @@ window.CanvasRenderer = (function () {
         // 1. Draw source image
         ctx.drawImage(image, 0, 0, imgWidth, imgHeight);
 
-        // 2. Calculate dynamic font size based on image height
+        // 2. Save context state
+        ctx.save();
+
+        // Dynamic font size based on image height
         const fontSizePx = Math.max(12, Math.round((imgHeight * fontSizePercent) / 100));
 
-        ctx.save();
         ctx.font = `${fontSizePx}px ${fontFamily}`;
         ctx.globalAlpha = textOpacity;
-
-        // Measure text width to align position
-        const textMetrics = ctx.measureText(timestampText);
-        const textWidth = textMetrics.width;
-        const textHeight = fontSizePx; // Approximate line height
 
         // Calculate padding in pixels
         const padX = Math.round((imgWidth * paddingPercent) / 100);
@@ -86,20 +85,25 @@ window.CanvasRenderer = (function () {
                 break;
         }
 
-        // 3. Draw Outline if enabled
+        // 3. Configure Shadow (centered glow, no offset duplication)
+        if (enableShadow) {
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+            ctx.shadowBlur = Math.max(4, Math.round(fontSizePx * 0.25));
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+        } else {
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+        }
+
+        // 4. Draw Outline if enabled
         if (enableOutline) {
-            ctx.strokeStyle = 'rgba(0, 0, 0, 0.85)';
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.95)';
             ctx.lineWidth = Math.max(2, Math.round(fontSizePx * 0.08));
             ctx.lineJoin = 'round';
             ctx.strokeText(timestampText, x, y);
-        }
-
-        // 4. Draw Drop Shadow if enabled
-        if (enableShadow) {
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-            ctx.shadowBlur = Math.max(4, Math.round(fontSizePx * 0.15));
-            ctx.shadowOffsetX = Math.max(1, Math.round(fontSizePx * 0.04));
-            ctx.shadowOffsetY = Math.max(1, Math.round(fontSizePx * 0.04));
         }
 
         // 5. Fill Text

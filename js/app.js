@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function recalculateTimestamps() {
         const count = state.photos.length;
-        photoCountBadge.innerHTML = `<i class="fa-regular fa-images"></i> ${count} Photos Loaded`;
+        photoCountBadge.innerHTML = `${count} Photos`;
         thumbCount.textContent = count;
 
         updateTimeStatsUI();
@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearAllBtn.disabled = true;
             exportZipBtn.disabled = true;
 
-            photoCountBadge.innerHTML = `<i class="fa-regular fa-images"></i> 0 Photos Loaded`;
+            photoCountBadge.innerHTML = `0 Photos`;
             updateTimeStatsUI();
         }
     }
