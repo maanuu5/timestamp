@@ -43,13 +43,8 @@ window.BatchProcessor = (function () {
             // Export to JPEG blob
             const blob = await window.CanvasRenderer.exportCanvasBlob(tempCanvas, 'image/jpeg', 0.92);
 
-            // Build filename (e.g. "stamped_001_filename.jpg")
-            const paddedIndex = String(i + 1).padStart(3, '0');
-            const cleanOriginalName = photo.name.replace(/\.[^/.]+$/, '');
-            const zipFilename = `stamped_${paddedIndex}_${cleanOriginalName}.jpg`;
-
-            // Add blob to zip
-            zip.file(zipFilename, blob);
+            // Keep the original filename exactly as-is
+            zip.file(photo.name, blob);
 
             // Revoke image element src object to free browser RAM
             if (img.src.startsWith('blob:')) {
